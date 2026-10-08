@@ -734,7 +734,7 @@ $("#sign").onclick = () => {
 const ring = ["functies", "toepassingen", "klanten", "prijzen", "vergelijk"];
 $("#random").href = "https://clipido.com/nl/" + ring[Math.floor(Math.random() * ring.length)];
 
-// ---------- Opstarten ----------
+// ---------- Beginstand ----------
 renderTasks();
 focusWin($("#ie"));
 // ---------- Virussen ----------
@@ -799,6 +799,13 @@ boot.onclick = () => {
   setTimeout(() => { showWin($("#congrats")); play("ding"); }, 6000);
   setTimeout(unleashViruses, 10000);
 };
+
+// ---------- Inactiviteit ----------
+// Na 3 minuten zonder invoer laadt de pagina opnieuw, dus de volgende bezoeker begint weer bij het opstartscherm.
+let lastActive = Date.now();
+["pointerdown", "pointermove", "keydown", "wheel", "scroll"].forEach(ev =>
+  addEventListener(ev, () => (lastActive = Date.now()), { passive: true, capture: true }));
+setInterval(() => { if (Date.now() - lastActive > 3 * 60 * 1000) location.reload(); }, 5000);
 </script>
 </body>
 </html>
