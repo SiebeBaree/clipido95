@@ -1,0 +1,804 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta charset="utf-8">
+<title>.::CLIPIDO 98::. Beeldbank voor marcom-teams (Beste in Netscape 4.0 op 800x600)</title>
+<style>
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: #008080 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ctext x='4' y='28' font-size='22'%3E%F0%9F%93%8E%3C/text%3E%3C/svg%3E");
+    font-family: "MS Sans Serif", Tahoma, Geneva, sans-serif;
+    font-size: 13px;
+    color: #000;
+    cursor: crosshair;
+    padding-bottom: 40px;
+  }
+  a { color: #0000ee; }
+  a:visited { color: #551a8b; }
+  .win {
+    background: #c0c0c0;
+    border: 2px solid;
+    border-color: #fff #000 #000 #fff;
+    box-shadow: inset -1px -1px #808080, inset 1px 1px #dfdfdf;
+    padding: 3px;
+    margin: 0 auto 18px;
+    position: relative;
+  }
+  .win[hidden], .win.min { display: none !important; }
+  .win.max {
+    position: fixed !important;
+    left: 0 !important; top: 0 !important; right: 0 !important; bottom: 30px !important;
+    width: auto !important;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .win.max > .body { flex: 1; overflow: auto; }
+  .title {
+    background: linear-gradient(90deg, #808080, #b5b5b5);
+    color: #dcdcdc;
+    font-weight: bold;
+    padding: 3px 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+    cursor: default;
+  }
+  .win.active > .title { background: linear-gradient(90deg, #000080, #1084d0); color: #fff; }
+  .title .btns span {
+    display: inline-block;
+    width: 16px; height: 14px;
+    background: #c0c0c0;
+    color: #000;
+    font-size: 10px;
+    line-height: 13px;
+    text-align: center;
+    margin-left: 2px;
+    border: 1px solid;
+    border-color: #fff #000 #000 #fff;
+    cursor: pointer;
+  }
+  .title .btns span:active { border-color: #000 #fff #fff #000; }
+  .menu { padding: 2px 4px; user-select: none; }
+  .menu span { margin-right: 12px; }
+  .body { padding: 10px; background: #fff; border: 2px inset #fff; }
+  .grey { background: #c0c0c0; border: 0; }
+  button, .btn {
+    font-family: inherit;
+    font-size: 13px;
+    background: #c0c0c0;
+    border: 2px solid;
+    border-color: #fff #000 #000 #fff;
+    box-shadow: inset -1px -1px #808080;
+    padding: 4px 14px;
+    color: #000 !important;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+  }
+  button:active, .btn:active, .btn.down { border-color: #000 #fff #fff #000; box-shadow: inset 1px 1px #808080; }
+  .comic { font-family: "Comic Sans MS", "Comic Sans", cursive; }
+  .wordart {
+    font-family: Impact, "Arial Black", sans-serif;
+    font-size: 64px;
+    letter-spacing: 2px;
+    color: #ffde00;
+    -webkit-text-stroke: 2px #c00;
+    text-shadow: 4px 4px 0 #000080, 8px 8px 0 #00000055;
+    transform: perspective(300px) rotateX(18deg) skew(-8deg);
+    margin: 10px 0 0;
+    text-align: center;
+  }
+  .rainbow {
+    background: linear-gradient(90deg, red, orange, yellow, lime, cyan, blue, magenta);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: bold;
+  }
+  .blink { animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { visibility: hidden; } }
+  marquee { background: #000; color: #0f0; font-family: "Courier New", monospace; padding: 4px; border: 2px inset #fff; }
+  table.feat td { vertical-align: top; padding: 8px; border: 2px groove #c0c0c0; }
+  .counter {
+    font-family: "Courier New", monospace;
+    background: #000; color: #f00;
+    padding: 2px 6px;
+    letter-spacing: 4px;
+    border: 2px inset #808080;
+    font-size: 18px;
+  }
+  .taskbar {
+    position: fixed; left: 0; right: 0; bottom: 0;
+    height: 30px;
+    background: #c0c0c0;
+    border-top: 2px solid #fff;
+    display: flex; align-items: center; gap: 4px;
+    padding: 0 3px;
+    z-index: 9000;
+    user-select: none;
+  }
+  .start { font-weight: bold; padding: 2px 8px; }
+  .tray {
+    margin-left: auto;
+    border: 1px solid; border-color: #808080 #fff #fff #808080;
+    padding: 3px 10px;
+  }
+  .tray span { cursor: pointer; }
+  .task { width: 170px; text-align: left; padding: 2px 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .task.down { background: #dcdcdc; font-weight: bold; }
+  .startmenu {
+    position: fixed; left: 2px; bottom: 30px;
+    z-index: 9001;
+    display: flex;
+    padding: 2px;
+    margin: 0;
+  }
+  .startmenu[hidden] { display: none; }
+  .startmenu .band {
+    background: linear-gradient(0deg, #000080, #1084d0);
+    color: #c0c0c0;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font: bold 20px Arial, sans-serif;
+    padding: 6px 4px;
+  }
+  .startmenu .band b { color: #fff; }
+  .startmenu ul { list-style: none; margin: 0; padding: 0; min-width: 210px; }
+  .startmenu li { padding: 7px 10px 7px 6px; cursor: pointer; display: flex; gap: 10px; align-items: center; }
+  .startmenu li:hover { background: #000080; color: #fff; }
+  .startmenu li.sep { border-top: 1px solid #808080; border-bottom: 1px solid #fff; padding: 0; margin: 3px 0; }
+  .startmenu li.sep:hover { background: none; }
+  .startmenu li i { font-style: normal; font-size: 20px; width: 26px; text-align: center; }
+  .icons { position: absolute; left: 10px; top: 10px; width: 90px; text-align: center; color: #fff; font-size: 12px; user-select: none; }
+  .icons div { margin-bottom: 18px; cursor: default; padding: 2px; }
+  .icons b { display: block; font-size: 34px; }
+  .icons div.sel span { background: #000080; outline: 1px dotted #fff; }
+  hr { border: 0; height: 6px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='6'%3E%3Cpath d='M0 3 L3 0 L6 3 L9 6 L12 3' stroke='%23f0f' fill='none'/%3E%3C/svg%3E"); }
+  .construction {
+    background: repeating-linear-gradient(45deg, #ffcc00 0 14px, #000 14px 28px);
+    padding: 6px;
+  }
+  .construction div { background: #ffcc00; font-weight: bold; text-align: center; padding: 6px; font-family: Impact, sans-serif; font-size: 20px; }
+  .popup { position: absolute; width: 300px; z-index: 5; margin: 0; }
+  .dialog { position: fixed; width: 340px; margin: 0; }
+  .dialog .row { display: flex; gap: 12px; align-items: flex-start; padding: 14px 12px 6px; }
+  .dialog .row > i { font-style: normal; font-size: 32px; }
+  .dialog .actions { text-align: center; padding: 8px 0 10px; }
+  .dialog .actions button { min-width: 75px; margin: 0 3px; }
+  img.photo { border: 3px ridge #c0c0c0; max-width: 100%; display: block; }
+  .center { text-align: center; }
+  .small { font-size: 10px; }
+  .progress { border: 2px inset #fff; height: 18px; background: #fff; padding: 2px; }
+  .progress div { height: 100%; width: 99%; background: repeating-linear-gradient(90deg, #000080 0 10px, transparent 10px 12px); }
+  .progress div.fill { width: 0; transition: width 1.8s steps(12); }
+  .clipi-bubble label { display: block; cursor: pointer; }
+  .overlay {
+    position: fixed; inset: 0; z-index: 10000;
+    background: #000; color: #fff;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    cursor: pointer;
+    font-family: "Courier New", monospace;
+  }
+  .overlay[hidden] { display: none; }
+  .overlay.off { background: #000; color: #ff8000; font: 28px Arial, sans-serif; text-align: center; }
+  .statusbar { border-top: 1px solid #808080; display: flex; justify-content: space-between; }
+  /* Win95-opstartscherm: wolkenlucht met de schuivende kleurenbalk onderaan */
+  #boot { background: #3a6ed8 url("img/splash.jpg") center / cover no-repeat; cursor: wait; }
+  #boot.ready { cursor: pointer; }
+  #boot .loadbar {
+    position: absolute; left: 0; right: 0; bottom: 0; height: 16px;
+    background: linear-gradient(90deg, #000080, #1084d0, #9b30ff, #ff5fd0, #000080) 0 0 / 50vw 100% repeat-x;
+    animation: loadbar 1.2s linear infinite;
+  }
+  @keyframes loadbar { to { background-position: 50vw 0; } }
+  #boot p { position: absolute; bottom: 40px; margin: 0; font: bold 18px Arial, sans-serif; text-shadow: 2px 2px 0 #000; }
+  .virus .row img { width: 96px; height: 96px; border: 2px inset #fff; }
+  .virus .title { background: linear-gradient(90deg, #800000, #ff0000) !important; color: #fff !important; }
+  .shake { animation: shake 0.08s 6 linear; }
+  @keyframes shake { 25% { translate: -6px 3px; } 75% { translate: 6px -3px; } }
+</style>
+</head>
+<body>
+
+<!-- Opstartscherm. Laadt een paar seconden, daarna ontgrendelt een klik de audio (browsers blokkeren geluid tot de eerste interactie). -->
+<div class="overlay" id="boot">
+  <p id="boot-text">Clipido 95 wordt gestart...</p>
+  <div class="loadbar"></div>
+</div>
+
+<div class="overlay off" id="shutdown" hidden>
+  <p>Het is nu veilig om uw computer<br>uit te schakelen.</p>
+  <p style="font-size: 13px; color: #888;">(of klik om opnieuw op te starten)</p>
+</div>
+
+<!-- Bureaublad iconen: dubbelklik opent -->
+<div class="icons">
+  <div data-open="computer"><b>🖥️</b><span>Deze Computer</span></div>
+  <div data-open="trash"><b>🗑️</b><span>Prullenbak<br>(Google Drive)</span></div>
+  <div data-open="folder"><b>📁</b><span>FOTOS_DEF_final_v3_ECHT</span></div>
+  <div data-open="mail"><b>📧</b><span>Outlook Express</span></div>
+  <div data-open="ie"><b>🌐</b><span>Het Internet</span></div>
+</div>
+
+<div style="width: 760px; margin: 0 auto; padding-top: 16px;">
+
+  <!-- Popup die niemand wou -->
+  <div class="win popup" id="congrats" hidden style="left: calc(50% + 300px); top: 110px; transform: rotate(2deg);">
+    <div class="title">⚠️ Gefeliciteerd!!! <span class="btns"><span data-act="close">×</span></span></div>
+    <div class="grey" style="padding: 10px;">
+      <p class="comic"><b>U bent de 1.000.000ste bezoeker!!!</b><br>U heeft een GRATIS beeldbank gewonnen. Klik op OK om uw prijs te claimen. Dit is geen virus.</p>
+      <div class="center"><button id="prize-ok">OK</button> <button id="prize-ook">Ook OK</button></div>
+    </div>
+  </div>
+
+  <div class="win popup" id="clipi" data-task="📎 Clipi" hidden style="position: fixed; right: 10px; bottom: 40px; width: 220px;">
+    <div class="title">Clipi <span class="btns"><span data-act="help">?</span><span data-act="close">×</span></span></div>
+    <div class="grey" style="padding: 8px;">
+      <div style="background: #ffffe1; border: 1px solid #000; padding: 6px; border-radius: 8px;" class="comic clipi-bubble">
+        <span id="clipi-text">Het lijkt erop dat u een foto zoekt van het festival van vorige zomer. Wilt u hulp?</span>
+        <br><br>
+        <label><input type="radio" name="clipi" value="yes"> Ja, help mij</label>
+        <label><input type="radio" name="clipi" value="no"> Nee, maar u gaat toch helpen</label>
+        <label><input type="radio" name="clipi" value="remove"> Verwijder Clipi (niet mogelijk)</label>
+      </div>
+      <img src="img/mascot.jpg" alt="Clipi de paperclip" width="110" style="display:block;margin:6px auto 0;">
+    </div>
+  </div>
+
+  <!-- Hoofdvenster -->
+  <div class="win" id="ie" data-task="🌐 Clipido 98 - Microsoft Internet Explorer">
+    <div class="title">
+      <span>🌐 Clipido 98 Beeldbank Edition - Microsoft Internet Explorer</span>
+      <span class="btns"><span data-act="min">_</span><span data-act="max">□</span><span data-act="close">×</span></span>
+    </div>
+    <div class="menu"><span><u>B</u>estand</span><span><u>B</u>ewerken</span><span><u>B</u>eeld</span><span><u>F</u>avorieten</span><span>E<u>x</u>tra</span><span id="menu-help" style="cursor:pointer"><u>H</u>elp</span></div>
+    <div class="menu" style="border-top: 1px solid #808080; padding-top: 4px;">
+      Adres: <span style="background:#fff;border:2px inset #fff;padding:1px 6px;display:inline-block;width:560px;">http://www.clipido.com/~siebe/index2_nieuw.htm</span> <a class="btn" style="padding:1px 6px;" href="https://clipido.com/nl">Ga</a>
+    </div>
+
+    <div class="body" style="background: #fff url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%224%22 height=%224%22%3E%3Crect width=%222%22 height=%222%22 fill=%22%23f4f4ff%22/%3E%3C/svg%3E');">
+
+      <marquee scrollamount="5">*** WELKOM OP DE OFFICIELE CLIPIDO HOMEPAGE *** NU OOK OP HET WORLD WIDE WEB *** 1.250+ MARCOMMERS KUNNEN NIET FOUT ZIJN *** VERGEET NIET ONS GASTENBOEK TE TEKENEN *** BEST BEKEKEN MET 256 KLEUREN ***</marquee>
+
+      <div class="wordart">CLIPIDO 98</div>
+      <p class="center comic" style="font-size: 20px; margin-top: 8px;">
+        De <span class="rainbow">BEELDBANK</span> voor moderne* marcom-teams
+      </p>
+      <p class="center small">*modern volgens de normen van 1998</p>
+
+      <table width="100%" cellpadding="8">
+        <tr>
+          <td width="55%" valign="top">
+            <img class="photo" src="img/hero.jpg" alt="Clipido op een gloednieuwe Pentium II">
+            <p class="small center"><i>Clipido draait op een Pentium II met maar liefst 64 MB RAM</i></p>
+          </td>
+          <td valign="top">
+            <p class="comic" style="font-size: 15px;">
+              Vind meteen al je foto's, video's, presentaties en documenten terug.
+              Op voorwaarde dat de diskette niet gecorrumpeerd is.
+            </p>
+            <p class="comic">Deel ze veilig met afdelingen, partners of het publiek. Via e-mail. In 47 bijlagen van 1,44 MB.</p>
+            <p>
+              <a class="btn" href="https://clipido.com/nl"><b>Boek een demo</b></a><br><br>
+              <a class="btn" href="https://clipido.com/nl/functies">Bekijk alle functies...</a>
+            </p>
+            <p class="small">Download tijd op 56k modem: <b>3 dagen 4 uur</b></p>
+            <div class="progress"><div></div></div>
+            <p class="small">99% voltooid. Al sinds 1998.</p>
+          </td>
+        </tr>
+      </table>
+
+      <hr>
+
+      <h2 class="center" style="font-family: 'Times New Roman', serif; color: #800000;">
+        <span class="blink">★</span> Waarom CLIPIDO??? <span class="blink">★</span>
+      </h2>
+
+      <table class="feat" width="100%" cellspacing="6">
+        <tr>
+          <td width="33%" bgcolor="#ffffcc">
+            <b>🔍 Visueel zoeken</b><br>
+            Beschrijf wat je zoekt en Clipido gaat erachteraan. Typ "luchtfoto festival vorige zomer" en krijg een JPEG van 120 bij 80 pixels. Spectaculair.
+          </td>
+          <td width="33%" bgcolor="#ccffcc">
+            <b>👤 Personenherkenning</b><br>
+            Elke foto van elke collega, automatisch gegroepeerd. Ook die van het kerstfeest. Vooral die van het kerstfeest.
+          </td>
+          <td bgcolor="#ccccff">
+            <b>🔤 Tekstherkenning</b><br>
+            OCR leest de tekst in je beelden. Werkt op borden, slogans en verpakkingen. Werkt niet op het handschrift van Jef van boekhouding.
+          </td>
+        </tr>
+        <tr>
+          <td bgcolor="#ffcccc">
+            <b>👯 Duplicaatdetectie</b><br>
+            Iedereen kan vrij uploaden. Clipido ziet dat <tt>logo.bmp</tt>, <tt>logo2.bmp</tt> en <tt>logo_NIEUW.bmp</tt> hetzelfde logo zijn. Wij hebben ook gehuild.
+          </td>
+          <td bgcolor="#ffccff">
+            <b>🏷️ Tags opruimen</b><br>
+            Clipido merkt dat "Event", "event", "EVENT" en "evnt" geen vier verschillende dingen zijn. Niemand hoeft nog bibliothecaris te spelen.
+          </td>
+          <td bgcolor="#ccffff">
+            <b>🤝 Werkruimtes</b><br>
+            Deel een werkruimte met je agency. Zij zien wat zij mogen zien. De rest blijft geheim, net als je wachtwoord <tt>marketing123</tt>.
+          </td>
+        </tr>
+      </table>
+
+      <hr>
+
+      <table width="100%" cellpadding="8">
+        <tr>
+          <td valign="top">
+            <h2 style="font-family: 'Times New Roman', serif; color: #000080;">Zij zoeken niet meer. Ze vinden.</h2>
+            <p class="comic">"Sinds Clipido hebben wij onze vergaderingen over waar de foto's staan geschrapt. Nu vergaderen we over iets anders."</p>
+            <p class="small">- Een brouwerij die al 100 jaar bestaat en nog steeds geen fax heeft weggegooid</p>
+            <p class="comic">"Ik vond een foto van 2003 in 4 seconden. Daarna heb ik de rest van de dag vrij genomen."</p>
+            <p class="small">- Marketeer, festival met 30.000 bezoekers</p>
+            <a href="https://clipido.com/nl/klanten">Lees klantverhalen &gt;&gt;</a>
+          </td>
+          <td width="45%" valign="top">
+            <img class="photo" src="img/team.jpg" alt="Een marketingteam dat juist een foto terugvond">
+            <p class="small center"><i>Dit team vond net de luchtfoto. Ze zijn nooit gestopt met high-fiven.</i></p>
+          </td>
+        </tr>
+      </table>
+
+      <hr>
+
+      <table width="100%" cellpadding="8">
+        <tr>
+          <td width="40%" valign="top"><img class="photo" src="img/box.jpg" alt="Clipido 98 in de doos"></td>
+          <td valign="top">
+            <h2 style="font-family: 'Times New Roman', serif; color: #008000;">Nu verkrijgbaar bij uw lokale Free Record Shop!</h2>
+            <table border="1" cellpadding="4" cellspacing="0" bgcolor="#ffffff" width="100%">
+              <tr bgcolor="#000080" style="color:#fff;"><th>Statistiek</th><th>Aantal</th></tr>
+              <tr><td>Beelden veilig en vindbaar bewaard</td><td align="right"><b>400.000+</b></td></tr>
+              <tr><td>Tags die beelden vindbaar houden</td><td align="right"><b>1,7M+</b></td></tr>
+              <tr><td>Mensen die vandaag vonden wat ze zochten</td><td align="right"><b>1.250+</b></td></tr>
+              <tr><td>Uptime</td><td align="right"><b>99,99%</b></td></tr>
+              <tr><td>Keren dat iemand "heb jij die foto nog?" mailde</td><td align="right"><b>0</b></td></tr>
+            </table>
+            <p class="small">Systeemvereisten: Windows 95 of hoger, cd-rom speler (4x), muis, geduld.</p>
+            <p><a class="btn" href="https://clipido.com/nl/prijzen">💾 Bereken je prijs</a> <a class="btn" href="https://clipido.com/nl/prijzen">🛒 In winkelwagentje</a></p>
+            <p class="small">Werkt samen met: Google Drive, SharePoint, Mediahaven en die lokale server onder het bureau van Patrick.</p>
+          </td>
+        </tr>
+      </table>
+
+      <div class="construction"><div>🚧 DEZE PAGINA IS NOG IN AANBOUW 🚧 KOM SNEL TERUG 🚧</div></div>
+
+      <br>
+
+      <table width="100%">
+        <tr>
+          <td valign="top" class="comic">
+            <b>📖 Gastenboek</b><br>
+            <small id="guestbook">
+              <b>xX_MarcomQueen_Xx</b> schreef: coole site!!! ik heb hem aan mijn favorieten toegevoegd<br>
+              <b>Patrick</b> schreef: wie heeft mijn server uitgezet<br>
+              <b>anoniem</b> schreef: eerste!!!1<br>
+            </small><br>
+            <button id="sign">Teken het gastenboek</button>
+          </td>
+          <td valign="top" align="right">
+            U bent bezoeker nummer<br>
+            <span class="counter">0001337</span><br><br>
+            <span class="small">Lid van de <a href="https://clipido.com/nl/vergelijk">Beeldbank WebRing</a><br>
+            <a href="https://clipido.com/nl/vergelijk">&lt;&lt; Vorige</a> | <a href="https://clipido.com/nl/klanten" id="random">Willekeurig</a> | <a href="https://clipido.com/nl/toepassingen">Volgende &gt;&gt;</a></span>
+          </td>
+        </tr>
+      </table>
+
+      <hr>
+
+      <p class="center small">
+        <a href="https://clipido.com/nl/functies">Functies</a> | <a href="https://clipido.com/nl/toepassingen">Toepassingen</a> | <a href="https://clipido.com/nl/prijzen">Prijzen</a> | <a href="https://clipido.com/nl/klanten">Klantverhalen</a> | <a href="mailto:hello@clipido.com">E-mail de webmaster</a><br><br>
+        © 1998 Clipido BV, Hasselt, België. Alle rechten voorbehouden. Alle linkerkanten ook.<br>
+        Deze site is geoptimaliseerd voor Internet Explorer 4.0 op een resolutie van 800x600.<br>
+        <img alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='31'%3E%3Crect width='88' height='31' fill='%23000'/%3E%3Ctext x='6' y='20' fill='%230f0' font-size='10' font-family='monospace'%3EMADE IN NOTEPAD%3C/text%3E%3C/svg%3E">
+        <img alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='31'%3E%3Crect width='88' height='31' fill='%23000080'/%3E%3Ctext x='4' y='20' fill='%23ff0' font-size='10' font-family='monospace'%3EGET NETSCAPE NOW%3C/text%3E%3C/svg%3E">
+        <a href="https://status.clipido.com"><img alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='31'%3E%3Crect width='88' height='31' fill='%23800000'/%3E%3Ctext x='4' y='20' fill='%23fff' font-size='10' font-family='monospace'%3EY2K COMPLIANT%3F%3C/text%3E%3C/svg%3E"></a>
+      </p>
+    </div>
+    <div class="menu small statusbar"><span id="status">✔ Klaar</span><span>🌐 Internet</span></div>
+  </div>
+</div>
+
+<!-- Startmenu -->
+<div class="win startmenu" id="startmenu" hidden>
+  <div class="band"><b>Clipido</b>98</div>
+  <ul>
+    <li data-go="https://clipido.com/nl/functies"><i>📄</i>Functies</li>
+    <li data-go="https://clipido.com/nl/toepassingen"><i>🎪</i>Toepassingen</li>
+    <li data-go="https://clipido.com/nl/klanten"><i>👥</i>Klantverhalen</li>
+    <li data-go="https://clipido.com/nl/prijzen"><i>💰</i>Prijzen</li>
+    <li data-go="https://clipido.com/nl/vergelijk"><i>⚖️</i>Vergelijk</li>
+    <li data-go="https://status.clipido.com"><i>📊</i>Systeemstatus</li>
+    <li class="sep"></li>
+    <li data-open="ie"><i>🌐</i>Internet Explorer</li>
+    <li data-open="clipi"><i>📎</i>Clipi</li>
+    <li data-open="mail"><i>📧</i>Outlook Express</li>
+    <li class="sep"></li>
+    <li data-open="shutdown"><i>🔌</i>Afsluiten...</li>
+  </ul>
+</div>
+
+<!-- Twee virussen die na het opstarten iets gratis aanbieden. Sluiten laat ze eerst wegvluchten. -->
+<div class="win dialog virus" id="v-gift" hidden style="width: 360px;">
+  <div class="title">🎁 GEFELICITEERD!!! U WINT IETS!!! <span class="btns"><span data-act="flee">×</span></span></div>
+  <div class="row"><img src="img/virus-gift.jpg" alt=""><div class="comic"><b>GRATIS: 10.000 stockfoto's van handdrukken!!!</b><br><br>Verstuurd door: <i>Patrick</i><br>Bijlage: <tt>HANDDRUK.JPG.exe</tt></div></div>
+  <div class="actions"><button id="v-gift-yes">Ja graag!!!</button> <button id="v-gift-yes2">Natuurlijk</button></div>
+</div>
+
+<div class="win dialog virus" id="v-ram" hidden style="width: 360px;">
+  <div class="title">⚡ UW COMPUTER IS TRAAG!!! <span class="btns"><span data-act="flee">×</span></span></div>
+  <div class="row"><img src="img/virus-ram.jpg" alt=""><div class="comic" id="v-ram-text"><b>U heeft maar 64 MB RAM.</b><br><br>Download nu GRATIS extra RAM! 100% veilig. Geen virus. Echt niet.</div></div>
+  <div class="actions"><button id="v-ram-yes">Download 128 MB RAM</button> <button id="v-ram-yes2">Download 256 MB</button></div>
+</div>
+
+<!-- Taakbalk -->
+<div class="taskbar">
+  <button class="start" id="start">🪟 Start</button>
+  <span id="tasks" style="display: flex; gap: 4px;"></span>
+  <span class="tray"><span id="mute" title="Volume">🔊</span> 📎 <span id="clock">13:37</span></span>
+</div>
+
+<script>
+// ---------- Geluid ----------
+// Alles wordt live gesynthetiseerd met Web Audio, zodat de site één bestand blijft zonder Microsoft wav's.
+let ctx, muted = false;
+const ac = () => (ctx ??= new AudioContext());
+
+function tone(freq, at, dur, { type = "sine", vol = 0.2, attack = 0.01, to } = {}) {
+  const c = ac(), t = c.currentTime + at;
+  const o = c.createOscillator(), g = c.createGain();
+  o.type = type;
+  o.frequency.setValueAtTime(freq, t);
+  if (to) o.frequency.exponentialRampToValueAtTime(to, t + dur);
+  g.gain.setValueAtTime(0.0001, t);
+  g.gain.linearRampToValueAtTime(vol, t + attack);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  o.connect(g).connect(c.destination);
+  o.start(t);
+  o.stop(t + dur + 0.05);
+}
+
+function noise(at, dur, vol, freq) {
+  const c = ac(), t = c.currentTime + at;
+  const buf = c.createBuffer(1, c.sampleRate * dur, c.sampleRate);
+  const data = buf.getChannelData(0);
+  for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+  const src = c.createBufferSource(), f = c.createBiquadFilter(), g = c.createGain();
+  src.buffer = buf;
+  f.type = "bandpass";
+  f.frequency.value = freq;
+  g.gain.value = vol;
+  src.connect(f).connect(g).connect(c.destination);
+  src.start(t);
+}
+
+const sfx = {
+  click: () => tone(1800, 0, 0.025, { type: "square", vol: 0.03 }),
+  ding: () => { tone(1318.5, 0, 0.7, { vol: 0.2 }); tone(2637, 0, 0.3, { vol: 0.04 }); },
+  error: () => { tone(440, 0, 0.4, { type: "triangle", vol: 0.25 }); tone(554, 0, 0.4, { type: "triangle", vol: 0.15 }); tone(330, 0.13, 0.5, { type: "triangle", vol: 0.25 }); },
+  min: () => tone(1100, 0, 0.15, { to: 250, vol: 0.08 }),
+  max: () => tone(250, 0, 0.15, { to: 1100, vol: 0.08 }),
+  notify: () => { tone(784, 0, 0.18, { vol: 0.15 }); tone(1175, 0.12, 0.35, { vol: 0.15 }); },
+  startup: () => {
+    // Zachte, opbouwende Es-groot pad, losjes naar het XP-opstartgeluid.
+    [311.13, 466.16, 622.25, 783.99, 932.33, 1244.5].forEach((f, i) => {
+      tone(f, i * 0.16, 3, { vol: 0.09, attack: 0.15 });
+      tone(f * 1.003, i * 0.16, 3, { type: "triangle", vol: 0.04, attack: 0.15 });
+    });
+    tone(155.56, 0, 3.5, { type: "triangle", vol: 0.12, attack: 0.3 });
+  },
+  shutdown: () => {
+    [1244.5, 932.33, 783.99, 622.25, 466.16].forEach((f, i) => tone(f, i * 0.22, 1.4, { vol: 0.1, attack: 0.05 }));
+    tone(155.56, 0.9, 1.6, { type: "triangle", vol: 0.12, attack: 0.1 });
+  },
+  dialup: () => {
+    // Kiestonen, dan de handshake waar iedereen zijn eigen naam niet meer hoorde.
+    [[697, 1209], [770, 1336], [852, 1477], [941, 1336], [697, 1477], [852, 1209]].forEach(([a, b], i) => {
+      tone(a, i * 0.11, 0.08, { vol: 0.08 });
+      tone(b, i * 0.11, 0.08, { vol: 0.08 });
+    });
+    tone(2100, 0.75, 0.35, { vol: 0.08 });
+    tone(1650, 1.1, 0.7, { type: "square", vol: 0.03, to: 1200 });
+    noise(1.1, 0.8, 0.5, 1800);
+    tone(980, 1.3, 0.5, { type: "sawtooth", vol: 0.02, to: 2400 });
+  },
+};
+
+const play = name => { if (!muted) try { sfx[name](); } catch {} };
+
+// ---------- Vensters ----------
+let z = 10;
+const $ = sel => document.querySelector(sel);
+const tasks = $("#tasks");
+
+function focusWin(win) {
+  document.querySelectorAll(".win.active").forEach(w => w.classList.remove("active"));
+  win.classList.add("active");
+  win.style.zIndex = ++z;
+  renderTasks();
+}
+
+function showWin(win) {
+  win.hidden = false;
+  win.classList.remove("min");
+  focusWin(win);
+}
+
+function closeWin(win) {
+  win.hidden = true;
+  if (win.classList.contains("dialog")) win.remove();
+  if (win.id === "clipi") setTimeout(clipiReturns, 4000);
+  renderTasks();
+}
+
+// Taakbalk toont een knop per open venster met data-task. Klik wisselt tussen minimaliseren en herstellen.
+function renderTasks() {
+  tasks.replaceChildren(...[...document.querySelectorAll(".win[data-task]:not([hidden])")].map(win => {
+    const b = document.createElement("button");
+    b.className = "btn task";
+    b.textContent = win.dataset.task;
+    const top = win.classList.contains("active") && !win.classList.contains("min");
+    b.classList.toggle("down", top);
+    b.onclick = () => {
+      if (top) { win.classList.add("min"); win.classList.remove("active"); play("min"); renderTasks(); }
+      else { if (win.classList.contains("min")) play("max"); showWin(win); }
+    };
+    return b;
+  }));
+}
+
+// Titelbalk slepen. Vaste vensters gebruiken schermcoördinaten, de rest paginacoördinaten.
+document.addEventListener("pointerdown", e => {
+  const win = e.target.closest(".win");
+  if (win && !win.classList.contains("startmenu")) focusWin(win);
+  const bar = e.target.closest(".title");
+  if (!bar || e.target.closest(".btns") || win.classList.contains("max")) return;
+  e.preventDefault();
+  const r = win.getBoundingClientRect();
+  const fixed = getComputedStyle(win).position === "fixed";
+  if (!fixed) win.style.position = "absolute";
+  Object.assign(win.style, { width: r.width + "px", margin: 0, right: "auto", bottom: "auto", transform: "none" });
+  const dx = e.clientX - r.left, dy = e.clientY - r.top;
+  const move = ev => {
+    win.style.left = ev.clientX - dx + (fixed ? 0 : scrollX) + "px";
+    win.style.top = Math.max(0, ev.clientY - dy) + (fixed ? 0 : scrollY) + "px";
+  };
+  move(e);
+  bar.setPointerCapture(e.pointerId);
+  bar.onpointermove = move;
+  bar.onpointerup = () => (bar.onpointermove = null);
+});
+
+document.addEventListener("dblclick", e => {
+  const bar = e.target.closest(".title");
+  if (bar && !e.target.closest(".btns")) bar.querySelector('[data-act="max"]')?.click();
+});
+
+// Titelbalkknoppen
+document.addEventListener("click", e => {
+  const btn = e.target.closest("[data-act]");
+  if (!btn) return;
+  const win = btn.closest(".win");
+  const act = btn.dataset.act;
+  if (act === "close") { play("click"); closeWin(win); }
+  if (act === "min") { win.classList.add("min"); win.classList.remove("active"); play("min"); renderTasks(); }
+  if (act === "max") { play(win.classList.toggle("max") ? "max" : "min"); }
+  if (act === "flee") flee(win);
+  if (act === "help") msgbox("Over Clipi", "Clipi helpt al sinds 1997. Niemand heeft erom gevraagd.");
+});
+
+// Klassieke berichtvensters. buttons: [label, callback?][]
+function msgbox(title, html, { icon = "ℹ️", sound = "ding", buttons = [["OK"]] } = {}) {
+  const win = document.createElement("div");
+  win.className = "win dialog";
+  win.innerHTML = `<div class="title">${title}<span class="btns"><span data-act="close">×</span></span></div>
+    <div class="row"><i>${icon}</i><div>${html}</div></div><div class="actions"></div>`;
+  for (const [label, fn] of buttons) {
+    const b = document.createElement("button");
+    b.textContent = label;
+    b.onclick = () => { play("click"); closeWin(win); fn?.(); };
+    win.querySelector(".actions").append(b);
+  }
+  const n = document.querySelectorAll(".dialog").length;
+  Object.assign(win.style, { left: `calc(50% - 170px + ${n * 24}px)`, top: `calc(35% + ${n * 24}px)` });
+  document.body.append(win);
+  focusWin(win);
+  if (sound) play(sound);
+  return win;
+}
+
+// ---------- Navigatie ----------
+// Elke externe link belt eerst in. Ctrl/Cmd-klik opent gewoon een nieuw tabblad.
+function go(url) {
+  let timer;
+  const host = new URL(url).host;
+  const d = msgbox("Externe verbinding", `<p>Inbellen naar <b>${host}</b>...</p><div class="progress"><div class="fill"></div></div><p class="small">Gebruik de telefoon nu niet.</p>`,
+    { icon: "📞", sound: null, buttons: [["Annuleren", () => clearTimeout(timer)]] });
+  requestAnimationFrame(() => requestAnimationFrame(() => (d.querySelector(".fill").style.width = "100%")));
+  play("dialup");
+  timer = setTimeout(() => (location.href = url), 1900);
+}
+
+document.addEventListener("click", e => {
+  const a = e.target.closest("a[href^='http']");
+  if (a && !e.metaKey && !e.ctrlKey && !e.shiftKey) { e.preventDefault(); play("click"); go(a.href); }
+  const item = e.target.closest("[data-go]");
+  if (item) { closeStart(); go(item.dataset.go); }
+});
+
+// Statusbalk toont de link-URL bij hover, zoals het hoort.
+const statusEl = $("#status");
+document.addEventListener("mouseover", e => {
+  const a = e.target.closest("#ie a[href]");
+  statusEl.textContent = a ? a.href : "✔ Klaar";
+});
+
+// ---------- Bureaublad ----------
+const actions = {
+  ie: () => showWin($("#ie")),
+  clipi: () => { showWin($("#clipi")); play("notify"); },
+  computer: () => msgbox("Deze Computer", "Deze Computer bevat:<br>💾 Diskettestation (A:)<br>🖴 Harde schijf (C:) 100% vol<br>💿 Cd-rom (D:) met AOL-proefversie"),
+  trash: () => msgbox("Prullenbak bevestigen", "Weet u zeker dat u <b>Google Drive</b> definitief wilt vervangen door Clipido?",
+    { icon: "🗑️", buttons: [["Ja", () => go("https://clipido.com/nl/vergelijk")], ["Ja"]] }),
+  folder: () => msgbox("Fout", "Kan FOTOS_DEF_final_v3_ECHT niet openen.<br>Het bestand is in gebruik door <b>Patrick</b>.<br><br>Probeer een beeldbank.",
+    { icon: "❌", sound: "error", buttons: [["OK"], ["Beeldbank", () => go("https://clipido.com/nl/functies")]] }),
+  mail: () => (location.href = "mailto:hello@clipido.com?subject=Ik%20wil%20Clipido%2098%20op%20diskette"),
+  shutdown: () => {
+    closeStart();
+    msgbox("Clipido 98 afsluiten", "Weet u zeker dat u wilt stoppen met het vinden van foto's?", {
+      icon: "🔌", sound: "ding",
+      buttons: [["Ja", () => { play("shutdown"); setTimeout(() => ($("#shutdown").hidden = false), 1500); }], ["Nee"]],
+    });
+  },
+};
+
+document.querySelectorAll(".icons [data-open]").forEach(icon => {
+  icon.onclick = () => {
+    document.querySelectorAll(".icons .sel").forEach(i => i.classList.remove("sel"));
+    icon.classList.add("sel");
+  };
+  icon.ondblclick = () => actions[icon.dataset.open]();
+});
+
+$("#shutdown").onclick = () => location.reload();
+$("#menu-help").onclick = actions.clipi;
+
+// ---------- Startmenu ----------
+const startmenu = $("#startmenu"), startBtn = $("#start");
+const closeStart = () => { startmenu.hidden = true; startBtn.classList.remove("down"); };
+startBtn.onclick = e => {
+  e.stopPropagation();
+  play("click");
+  startmenu.hidden = !startmenu.hidden;
+  startBtn.classList.toggle("down", !startmenu.hidden);
+  startmenu.style.zIndex = ++z + 9000;
+};
+startmenu.querySelectorAll("[data-open]").forEach(li => (li.onclick = () => { closeStart(); actions[li.dataset.open](); }));
+document.addEventListener("click", e => { if (!e.target.closest("#startmenu, #start")) closeStart(); });
+
+// ---------- Tray ----------
+const clock = $("#clock");
+const tick = () => (clock.textContent = new Date().toLocaleTimeString("nl-BE", { hour: "2-digit", minute: "2-digit" }));
+tick();
+setInterval(tick, 15000);
+
+$("#mute").onclick = e => {
+  muted = !muted;
+  e.target.textContent = muted ? "🔇" : "🔊";
+  if (!muted) play("ding");
+};
+
+// ---------- Clipi ----------
+const clipiText = $("#clipi-text");
+function clipiReturns() {
+  clipiText.textContent = "Ik ben terug! Had u mij gemist? Wilt u hulp bij het zoeken naar foto's?";
+  showWin($("#clipi"));
+  play("notify");
+}
+
+document.querySelectorAll("[name=clipi]").forEach(r => (r.onchange = () => {
+  play("click");
+  if (r.value === "yes") go("https://clipido.com/nl/functies");
+  if (r.value === "no") { clipiText.textContent = "Prima. Ik blijf gewoon hier staan. Ik kijk wel mee."; play("notify"); }
+  if (r.value === "remove") msgbox("Clipi", "Clipi kan niet worden verwijderd.<br>Clipi is een systeembestand.", { icon: "❌", sound: "error" });
+  setTimeout(() => (r.checked = false), 600);
+}));
+
+// ---------- Prijsvraag ----------
+$("#prize-ok").onclick = () => { play("click"); closeWin($("#congrats")); msgbox("Prijs geclaimd", "Uw gratis beeldbank wordt binnen 6 tot 8 weken geleverd op 312 diskettes.<br><br>Of boek gewoon een demo.", { buttons: [["Boek een demo", () => go("https://clipido.com/nl")], ["Ik wacht wel"]] }); };
+$("#prize-ook").onclick = () => msgbox("Fout", "Ook OK is niet OK.", { icon: "❌", sound: "error" });
+
+// ---------- Gastenboek ----------
+$("#sign").onclick = () => {
+  play("click");
+  const msg = prompt("Laat een berichtje achter in het gastenboek:", "coole site!!!");
+  if (!msg) return;
+  const line = document.createElement("span");
+  line.innerHTML = "<b>Gast</b> schreef: ";
+  line.append(msg, document.createElement("br"));
+  $("#guestbook").append(line);
+  play("ding");
+};
+
+// Willekeurige webring-bestemming
+const ring = ["functies", "toepassingen", "klanten", "prijzen", "vergelijk"];
+$("#random").href = "https://clipido.com/nl/" + ring[Math.floor(Math.random() * ring.length)];
+
+// ---------- Opstarten ----------
+renderTasks();
+focusWin($("#ie"));
+// ---------- Virussen ----------
+// Het kruisje laat een virus twee keer wegvluchten, pas de derde keer gaat het echt dicht.
+function flee(win) {
+  win.fled = (win.fled ?? 0) + 1;
+  if (win.fled > 2) { play("click"); return closeWin(win); }
+  place(win);
+  play("error");
+}
+
+function place(win) {
+  win.style.left = Math.random() * (innerWidth - 380) + "px";
+  win.style.top = Math.random() * (innerHeight - 260) + "px";
+  win.classList.remove("shake");
+  void win.offsetWidth;
+  win.classList.add("shake");
+}
+
+function infectGift() {
+  closeWin($("#v-gift"));
+  msgbox("Clipido Virusscanner 95", "Virus gedetecteerd: <tt>HANDDRUK.JPG.exe</tt><br><br>10.000 stockfoto's van handdrukken ontvangen. Duplicaatdetectie vond er 9.999 identieke. U houdt 1 handdruk over.",
+    { icon: "🛡️", sound: "error", buttons: [["Bedankt Clipido"], ["Hoe werkt dat?", () => go("https://clipido.com/nl/functies")]] });
+}
+
+function downloadRam() {
+  const win = $("#v-ram");
+  win.querySelector(".actions").remove();
+  $("#v-ram-text").innerHTML = '<b>RAM downloaden...</b><div class="progress" style="margin-top:8px"><div class="fill" style="transition-duration:3s"></div></div><p class="small">Nog 4 uur. Of 3 seconden.</p>';
+  requestAnimationFrame(() => requestAnimationFrame(() => (win.querySelector(".fill").style.width = "99%")));
+  play("dialup");
+  setTimeout(() => {
+    closeWin(win);
+    msgbox("Fout", "RAM kan niet gedownload worden.<br>Een beeldbank wel.", { icon: "❌", sound: "error", buttons: [["Boek een demo", () => go("https://clipido.com/nl")], ["Jammer"]] });
+  }, 3200);
+}
+
+$("#v-gift-yes").onclick = $("#v-gift-yes2").onclick = infectGift;
+$("#v-ram-yes").onclick = $("#v-ram-yes2").onclick = downloadRam;
+
+function unleashViruses() {
+  ["#v-gift", "#v-ram"].forEach((id, i) => setTimeout(() => {
+    const win = $(id);
+    showWin(win);
+    place(win);
+    play("error");
+  }, i * 900));
+}
+
+// ---------- Opstarten ----------
+const boot = $("#boot");
+setTimeout(() => {
+  boot.classList.add("ready");
+  $("#boot-text").textContent = "Klik om Clipido 95 te starten";
+}, 3500);
+
+boot.onclick = () => {
+  if (!boot.classList.contains("ready")) return;
+  boot.remove();
+  play("startup");
+  setTimeout(() => { showWin($("#clipi")); play("notify"); }, 2500);
+  setTimeout(() => { showWin($("#congrats")); play("ding"); }, 6000);
+  setTimeout(unleashViruses, 10000);
+};
+</script>
+</body>
+</html>
